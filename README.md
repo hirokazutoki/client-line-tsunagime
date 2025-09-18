@@ -1,54 +1,36 @@
-# LIFF Starter
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-LIFF Starter is a good starter template can help you understand how to integrate LIFF into your own development environment.
+## Getting Started
 
-You can check the source code and modify it to implement some cool stuff with LIFF API.
+First, run the development server:
 
-## Getting Start
-
-
-```sh
-$ cd src/vanilla/
-$ yarn install
-$ yarn dev
-$ npm start
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Build & Deploy
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Build and deploy the app with Netlify CLI tools
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-1. Install Netlify CLI tool from npm.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-```sh
-$ npm install netlify-cli -g
-```
+## Learn More
 
-2. Run following command to build project.
+To learn more about Next.js, take a look at the following resources:
 
-```sh
-$ LIFF_ID="your LIFF ID" npm run build
-* this script is already set in package.json
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-3. Make sure you have signed in your Netlify account.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-```sh
-$ cd ../../
-$ netlify login
-```
+## Deploy on Vercel
 
-4. Deploy to Netlify
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-```sh
-$ netlify deploy
-```
-
-5. Create your site name and choose the source path `dist` to deploy.
-
-6. You can see the stating(draft) site URL, once you confirm it you can deploy it to production stie.
-
-```sh
-$ netlify deploy --prod
-```
-
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
