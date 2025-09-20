@@ -20,7 +20,7 @@ export default function SanctumPage() {
         try {
             // Simulate login with user info
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/external-login`,
+                `${process.env.TSUNAGIME_PUBLIC_API_URL}/external-login`,
                 {
                     method: "POST",
                     headers: {
