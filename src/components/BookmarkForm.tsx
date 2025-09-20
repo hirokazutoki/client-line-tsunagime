@@ -42,7 +42,7 @@ export function BookmarkForm() {
     setErrors({});
 
     try {
-      const response = await fetch(`${process.env.TSUNAGIME_PUBLIC_API_URL}/bookmarks`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/bookmarks`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
