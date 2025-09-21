@@ -11,8 +11,8 @@ type ValidationErrors = {
   message?: string;
 };
 
-export function BookmarkForm() {
-  const [url, setUrl] = useState("");
+export function HelpRequestForm() {
+  const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [token, setToken] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export function BookmarkForm() {
     setErrors({});
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/v1/bookmarks`, {
+      const response = await fetch(`http://localhost:8000/api/v1/help-requests`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,8 +50,8 @@ export function BookmarkForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          url,
-          title: title || url, // Use the provided title or default to URL
+          description,
+          title: title || description,
         }),
       });
 
@@ -71,13 +71,13 @@ export function BookmarkForm() {
       }
 
       // Success case
-      setUrl("");
+      setDescription("");
       setTitle("");
-      alert("Bookmark created!");
+      alert("Help request created!");
       window.location.reload();
     } catch (error) {
-      console.error("Failed to create bookmark:", error);
-      setErrors({ message: "Failed to create bookmark. Please try again." });
+      console.error("Failed to create help request:", error);
+      setErrors({ message: "Failed to create help request. Please try again." });
     } finally {
       setIsSubmitting(false);
     }
@@ -86,8 +86,8 @@ export function BookmarkForm() {
   return (
     <Card className="shadow-sm">
       <CardHeader>
-        <CardTitle>Add New Bookmark</CardTitle>
-        <CardDescription>Enter a URL and title to add to your bookmarks collection</CardDescription>
+        <CardTitle>Add New Help Requests</CardTitle>
+        <CardDescription>Enter a URL and title to add to your help requests collection</CardDescription>
       </CardHeader>
       <CardContent>
         {errors.message && (
@@ -99,13 +99,13 @@ export function BookmarkForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="url" className="text-sm font-medium">
-              Website URL
+              Description
             </label>
             <Input
-              id="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="https://example.com"
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="..."
               required
               disabled={isSubmitting}
               className={errors.url ? "border-red-500" : ""}
@@ -140,7 +140,7 @@ export function BookmarkForm() {
             className="w-full"
             disabled={isSubmitting || !token}
           >
-            {isSubmitting ? "Adding..." : "Add Bookmark"}
+            {isSubmitting ? "Adding..." : "Add Help Request"}
           </Button>
         </form>
       </CardContent>

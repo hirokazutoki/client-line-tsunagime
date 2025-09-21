@@ -9,7 +9,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export default function SanctumPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const [email, setEmail] = useState("john@example.com");
+    const [email, setEmail] = useState("dev+client@hirokazutoki.com");
+    const [password, setPassword] = useState("Test1234");
     const [error, setError] = useState<string | null>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -20,7 +21,7 @@ export default function SanctumPage() {
         try {
             // Simulate login with user info
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/v1/external-login`,
+                `http://localhost:8000/api/v1/external-login`,
                 {
                     method: "POST",
                     headers: {
@@ -89,7 +90,7 @@ export default function SanctumPage() {
                                     required
                                 />
                             </div>
-                            <div className="space-y-2">
+                             <div className="space-y-2">
                                 <label htmlFor="password" className="text-sm font-medium">
                                     Password
                                 </label>
@@ -97,12 +98,9 @@ export default function SanctumPage() {
                                     id="password"
                                     type="password"
                                     placeholder="••••••••"
-                                    value="password" // Prefilled for demo purposes
-                                    disabled
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <p className="text-xs text-gray-500">
-                                    (Password is pre-filled for this demo)
-                                </p>
                             </div>
                             <Button className="w-full" type="submit" disabled={isLoading}>
                                 {isLoading ? "Signing in..." : "Sign In"}
