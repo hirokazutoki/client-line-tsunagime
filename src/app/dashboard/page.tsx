@@ -5,23 +5,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-type Bookmark = {
+type HelpRequest = {
   id: number;
-  url: string;
-  title?: string;
+  description?: string;
+  address: string;
   created_at: string;
+  process_status: string;
 };
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
   const token = cookieStore.get("apiToken")?.value;
 
-  let bookmarks: Bookmark[] = [];
+  let helpRequests: HelpRequest[] = [];
   let error = null;
 
   if (token) {
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/help-requests`, {
+      const res = await fetch(`http://tsunagime-api:8000/api/v1/help-requests`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -32,7 +33,7 @@ export default async function DashboardPage() {
       });
 
       if (res.ok) {
-        bookmarks = await res.json();
+        helpRequests = await res.json();
       } else {
         error = `Failed to fetch help requests: ${res.status} ${res.statusText}`;
         console.error("API Response:", await res.text().catch(() => "Could not read response text"));
@@ -93,30 +94,20 @@ export default async function DashboardPage() {
                   <p className="text-red-500 mb-4">{error}</p>
                 )}
 
-                {bookmarks.length === 0 ? (
+                {helpRequests.length === 0 ? (
                   <p className="text-muted-foreground py-4">
-                    You haven&apos;t added any bookmarks yet. Add your first one!
+                    You haven&apos;t added any help requests yet. Add your first one!
                   </p>
                 ) : (
                   <ul className="divide-y">
-                    {bookmarks.map((bookmark) => (
-                      <li key={bookmark.id} className="py-3">
-                        <a
-                          href={bookmark.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline break-all font-medium"
-                        >
-                          {bookmark.title || bookmark.url}
-                        </a>
-                        {bookmark.title && (
-                          <p className="text-sm text-gray-600 mt-1 break-all">
-                            {bookmark.url}
-                          </p>
-                        )}
+                    {helpRequests.map((helpRequest) => (
+                      <li key={helpRequest.id} className="py-3">
                         <p className="text-xs text-gray-500 mt-1">
-                          Added on {new Date(bookmark.created_at).toLocaleDateString()}
+                          Added on {new Date(helpRequest.created_at).toLocaleDateString()}
                         </p>
+                        <p>{ helpRequest.description }</p>
+                        <p>{ helpRequest.address }</p>
+                        <p>{ helpRequest.process_status }</p>
                       </li>
                     ))}
                   </ul>

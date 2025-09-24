@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 type ValidationErrors = {
-  url?: string[];
-  title?: string[];
+  description?: string[];
+  address?: string[];
   message?: string;
 };
 
 export function HelpRequestForm() {
   const [description, setDescription] = useState("");
-  const [title, setTitle] = useState("");
+  const [address, setAddress] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -42,6 +42,7 @@ export function HelpRequestForm() {
     setErrors({});
 
     try {
+      // NOTE: クライエントサイド実行なので、localhost:8000
       const response = await fetch(`http://localhost:8000/api/v1/help-requests`, {
         method: 'POST',
         headers: {
@@ -51,7 +52,7 @@ export function HelpRequestForm() {
         },
         body: JSON.stringify({
           description,
-          title: title || description,
+          address,
         }),
       });
 
@@ -72,7 +73,7 @@ export function HelpRequestForm() {
 
       // Success case
       setDescription("");
-      setTitle("");
+      setAddress("");
       alert("Help request created!");
       window.location.reload();
     } catch (error) {
@@ -108,31 +109,28 @@ export function HelpRequestForm() {
               placeholder="..."
               required
               disabled={isSubmitting}
-              className={errors.url ? "border-red-500" : ""}
+              className={errors.description ? "border-red-500" : ""}
             />
-            {errors.url && (
-              <p className="text-red-500 text-xs mt-1">{errors.url[0]}</p>
+            {errors.description && (
+              <p className="text-red-500 text-xs mt-1">{errors.description[0]}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="title" className="text-sm font-medium">
-              Bookmark Title
+            <label htmlFor="address" className="text-sm font-medium">
+              Address
             </label>
             <Input
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="My Favorite Website"
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Null City"
               disabled={isSubmitting}
-              className={errors.title ? "border-red-500" : ""}
+              className={errors.address ? "border-red-500" : ""}
             />
-            {errors.title && (
-              <p className="text-red-500 text-xs mt-1">{errors.title[0]}</p>
+            {errors.address && (
+              <p className="text-red-500 text-xs mt-1">{errors.address[0]}</p>
             )}
-            <p className="text-xs text-gray-500">
-              If left empty, the URL will be used as the title
-            </p>
           </div>
 
           <Button

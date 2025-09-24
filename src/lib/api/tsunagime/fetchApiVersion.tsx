@@ -2,7 +2,7 @@ export async function fetchApiVersion(): Promise<{ version: string }> {
     const fallback = { version: "unknown" };
 
     try {
-        const res = await fetch("http://tsunagime-api:8000/api/v1/version", {
+        const res = await fetch(`http://tsunagime-api:8000/api/v1/version`, {
             cache: "no-store",
         });
 
