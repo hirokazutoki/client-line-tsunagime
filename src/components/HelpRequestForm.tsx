@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import MapPicker from "@/components/MapPicker";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,6 +15,8 @@ type ValidationErrors = {
 export function HelpRequestForm() {
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
+  const [lat, setLat] = useState<number | null>(null);
+  const [lng, setLng] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -38,6 +41,11 @@ export function HelpRequestForm() {
       return;
     }
 
+    if (lat === null || lng === null) {
+      alert("地図から位置を選んでください");
+      return;
+    }
+
     setIsSubmitting(true);
     setErrors({});
 
@@ -53,6 +61,8 @@ export function HelpRequestForm() {
         body: JSON.stringify({
           description,
           address,
+          lat,
+          lng,
         }),
       });
 
@@ -132,6 +142,13 @@ export function HelpRequestForm() {
               <p className="text-red-500 text-xs mt-1">{errors.address[0]}</p>
             )}
           </div>
+
+            <MapPicker
+                onSelectAction={(lat, lng) => {
+                    setLat(lat);
+                    setLng(lng);
+                }}
+            />
 
           <Button
             type="submit"
