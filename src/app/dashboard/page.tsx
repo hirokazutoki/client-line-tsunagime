@@ -9,6 +9,8 @@ type HelpRequest = {
   id: number;
   description?: string;
   address: string;
+  latitude?: number;
+  longitude?: number;
   created_at: string;
   process_status: string;
 };
@@ -107,6 +109,9 @@ export default async function DashboardPage() {
                         </p>
                         <p>{ helpRequest.description }</p>
                         <p>{ helpRequest.address }</p>
+                        <p className="text-xs text-gray-500 ml-2">
+                          ( { helpRequest.latitude }, { helpRequest.longitude } )
+                        </p>
                         <p>{ helpRequest.process_status }</p>
                       </li>
                     ))}

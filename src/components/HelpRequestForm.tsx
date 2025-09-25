@@ -42,7 +42,7 @@ export function HelpRequestForm() {
     }
 
     if (lat === null || lng === null) {
-      alert("地図から位置を選んでください");
+      alert("Please select a location from the map");
       return;
     }
 
@@ -143,6 +143,7 @@ export function HelpRequestForm() {
             )}
           </div>
 
+            <label>Map</label>
             <MapPicker
                 onSelectAction={(lat, lng) => {
                     setLat(lat);

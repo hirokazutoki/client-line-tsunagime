@@ -5,8 +5,8 @@ import "leaflet/dist/leaflet.css";
 
 export default function MapPicker({
                                       onSelectAction,
-                                      initialLat = 35.6812,
-                                      initialLng = 139.7671,
+                                      initialLat = 35.54441901483873,
+                                      initialLng = 134.82017544277463,
                                   }: {
     onSelectAction: (lat: number, lng: number) => void;
     initialLat?: number;
