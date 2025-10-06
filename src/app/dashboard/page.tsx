@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import ClientAvailabilityDatesCalendar from "@/components/ClientAvailabilityDatesCalendar";
 
 type HelpRequest = {
   id: number;
@@ -82,6 +83,8 @@ export default async function DashboardPage() {
           <div className="grid gap-8 md:grid-cols-2">
             <div>
               <HelpRequestForm />
+              <div className='my-6'></div>
+              <ClientAvailabilityDatesCalendar />
             </div>
 
             <Card className="shadow-sm">
